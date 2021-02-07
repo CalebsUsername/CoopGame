@@ -105,7 +105,6 @@ void ASWeapon::Fire()
 		TracerEnd = Hit.ImpactPoint;
 	
 		PlayImpactEffects(SurfaceType, Hit.ImpactPoint);
-
 		PlayWeaponEffects(TracerEnd);
 		
 		LastFireTime = GetWorld()->TimeSeconds;
@@ -113,6 +112,7 @@ void ASWeapon::Fire()
 		if (HasAuthority())		
 		{
 			HitScanTrace.TraceTo = TracerEnd;
+			HitScanTrace.SurfaceType = SurfaceType;
 			HitScanTrace.a++;
 		}
 	}
@@ -122,6 +122,11 @@ void ASWeapon::Fire()
 	{
 		if(GetOwnerController())
 		{
+			if (HasAuthority())		
+		{
+			HitScanTrace.TraceTo = TracerEnd;
+			HitScanTrace.a++;
+		}
 			if(CurrentMagSize != 0){CurrentMagSize -= 1.f;}
 			PlayWeaponEffects(TracerEnd);
 			LastFireTime = GetWorld()->TimeSeconds;

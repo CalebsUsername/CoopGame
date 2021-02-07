@@ -9,6 +9,16 @@
 #include "Net/UnrealNetwork.h"
 #include "Sound/SoundCue.h"
 
+
+static int32 DebugExplosiveBarrelDrawing = 0;
+FAutoConsoleVariableRef CVARDebugExplosiveBarrelDrawing
+(
+	TEXT("COOP.DebugExplosiveBarrels"), 
+	DebugExplosiveBarrelDrawing, 
+	TEXT("Draw debug lines for explosive barrels."),
+	ECVF_Cheat
+);
+
 // Sets default values
 ASExplosiveBarrel::ASExplosiveBarrel()
 {
@@ -60,6 +70,7 @@ void ASExplosiveBarrel::OnHealthChanged(USHealthComponent* HealthComponent, floa
 		MeshComp->AddImpulse(BoostIntensity, NAME_None, true);
 
 		BlastComp->FireImpulse();
+
 		if(HasAuthority())
 		{
 			TArray<AActor*> IgnoreActors;
@@ -69,7 +80,10 @@ void ASExplosiveBarrel::OnHealthChanged(USHealthComponent* HealthComponent, floa
 			UGameplayStatics::ApplyRadialDamage(this, ExplosionDamage, GetActorLocation(), ExplosionRadius, nullptr, IgnoreActors, this, GetInstigatorController(), true);
 
 			// Debug
-			DrawDebugSphere(GetWorld(), GetActorLocation(), ExplosionRadius, 12, FColor::Blue, false, 4.f, (uint8)'\000', 3.f);
+			if (DebugExplosiveBarrelDrawing > 0)
+			{
+				DrawDebugSphere(GetWorld(), GetActorLocation(), ExplosionRadius, 12, FColor::Blue, false, 4.f, (uint8)'\000', 3.f);
+			}
 
 			SetLifeSpan(5.f);
 		}

@@ -20,7 +20,6 @@ void USHealthComponent::BeginPlay()
 
 	Health = DefaultHealth;
 
-	
 	if(GetOwnerRole() == ROLE_Authority)
 	{
 		AActor* MyOwner = GetOwner();
