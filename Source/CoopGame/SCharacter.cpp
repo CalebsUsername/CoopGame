@@ -60,12 +60,6 @@ void ASCharacter::BeginPlay()
 		FActorSpawnParameters SpawnParams;
 		SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
 
-		// UObject* ClassPackage = ANY_PACKAGE;
-		
-		// UClass* BPRifleClass = FindObject<UClass>(ANY_PACKAGE, TEXT("Game/Blueprints/BP_Rifle.BP_Rifle"));
-		// UClass* BPGrenadeLauncherClass = FindObject<UClass>(ANY_PACKAGE, TEXT("/Game/Blueprints/BP_GrenadeLauncher.BP_GrenadeLauncher"));
-
-		// StarterWeaponClass = BPGrenadeLauncherClass;
 		if (StarterWeaponClass)
 		{
 			CurrentWeapon = GetWorld()->SpawnActor<ASWeapon>(StarterWeaponClass, FVector::ZeroVector, FRotator::ZeroRotator, SpawnParams);
@@ -175,10 +169,13 @@ void ASCharacter::EndZoom()
 
 void ASCharacter::StartFire() 
 {
-	if(CurrentWeapon && !IsReloading)
+	if(CurrentWeapon)
 	{
-		IsShooting = true;
-		CurrentWeapon->StartFire();
+		if (CurrentWeapon->CurrentMagSize > 0 && !IsReloading)
+		{
+			IsShooting = true;
+			CurrentWeapon->StartFire();
+		}
 	}
 }
 

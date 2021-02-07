@@ -67,7 +67,7 @@ void ASWeapon::EndFire()
 // Check line trace to see if an actor was hit, and apply point damage if successful
 void ASWeapon::Fire() 
 {
-	if (GetLocalRole() < ROLE_Authority)
+	if (!HasAuthority())
 	{
 		ServerFire();
 	}
@@ -109,6 +109,12 @@ void ASWeapon::Fire()
 		PlayWeaponEffects(TracerEnd);
 		
 		LastFireTime = GetWorld()->TimeSeconds;
+
+		if (HasAuthority())		
+		{
+			HitScanTrace.TraceTo = TracerEnd;
+			HitScanTrace.a++;
+		}
 	}
 
 	// Still affect weapon attributes even if nothing was hit with GunTrace
@@ -171,14 +177,7 @@ bool ASWeapon::GunTrace(FHitResult& Hit, FVector ShotDirection)
 	OwnerController->GetPlayerViewPoint(Location, Rotation);
 
 	ShotDirection = -Rotation.Vector();
-
 	TracerEnd = Location + Rotation.Vector() * MaxRange;
-
-	if (HasAuthority())		
-	{
-		HitScanTrace.TraceTo = TracerEnd;
-		HitScanTrace.a++;
-	}
 
 	FCollisionQueryParams Params;
 	Params.AddIgnoredActor(this);
