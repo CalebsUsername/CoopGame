@@ -18,10 +18,7 @@
 			"name": "CoopGame (DebugGame)",
 			"request": "launch",
 			"preLaunchTask": "CoopGame Win64 DebugGame Build",
-			"program": "D:\\Epic Library\\UE_4.26\\Engine\\Binaries\\Win64\\UE4Game-Win64-DebugGame.exe",
-			// "D:\\UnrealProjects\\CoopGame\\Binaries\\Win64\\CoopGame-Win64-DebugGame.exe"
-			// "D:\\UnrealProjects\\CoopGame\\Binaries\\Win64\\UE4-Win64-DebugGame.exe"
-			// "D:\\Epic Library\\UE_4.26\\Engine\\Binaries\\Win64\\UE4Game-Win64-DebugGame.exe"
+			"program": "D:\\UnrealProjects\\CoopGame\\Binaries\\Win64\\UE4-Win64-DebugGame.exe",
 			"args": [
 			],
 			"cwd": "D:\\Epic Library\\UE_4.26",
