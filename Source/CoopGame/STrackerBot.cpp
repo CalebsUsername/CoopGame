@@ -16,6 +16,16 @@
 
 
 
+static int32 DebugBotDrawing = 0;
+FAutoConsoleVariableRef CVARDebugBotDrawing
+(
+	TEXT("COOP.DebugBots"), 
+	DebugBotDrawing, 
+	TEXT("Draw Debug Lines For Bots"),
+	ECVF_Cheat
+);
+
+
 // Sets default values
 ASTrackerBot::ASTrackerBot()
 {
@@ -187,11 +197,8 @@ void ASTrackerBot::SelfDestruct()
 	bExploded = true;
 
 	UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), ExplosionEffect, GetActorLocation(), FRotator::ZeroRotator, ((FVector)((2.0F))), true, EPSCPoolMethod::None, true);
-
 	UGameplayStatics::PlaySoundAtLocation(this, ExplodeSound, GetActorLocation());
-	
 	MeshComp->SetVisibility(false, true);
-	//MeshComp->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 
 	if(HasAuthority())
 	{
@@ -204,7 +211,10 @@ void ASTrackerBot::SelfDestruct()
 		UGameplayStatics::ApplyRadialDamage(this, ActualDamage, GetActorLocation(), ExplosionRadius, nullptr, IgnoreActors, this, GetInstigatorController(), true);
 
 		// Debug
-		DrawDebugSphere(GetWorld(), GetActorLocation(), ExplosionRadius, 12, FColor::Blue, false, 4.f, (uint8)'\000', 3.f);
+		if (DebugBotDrawing > 0)
+		{
+			DrawDebugSphere(GetWorld(), GetActorLocation(), ExplosionRadius, 12, FColor::Blue, false, 4.f, (uint8)'\000', 3.f);
+		}
 
 		SetLifeSpan(1.f);
 	}
@@ -237,7 +247,7 @@ void ASTrackerBot::OnCheckForFriendlyBots()
 	GetWorld()->OverlapMultiByObjectType(Overlaps, GetActorLocation(), FQuat::Identity, QueryParams, CollShape);
 
 	int32 NrOfBots = 0;
-	// loop over the results using a "range based for loop"
+
 	for (FOverlapResult Result : Overlaps)
 	{
 		// Check if we overlapped with another tracker bot (ignoring players and other bot types)
@@ -253,6 +263,12 @@ void ASTrackerBot::OnCheckForFriendlyBots()
 
 	// Clamp between min=0 and max=4
 	PowerLevel = FMath::Clamp(NrOfBots, 0, MaxPowerLevel);
+
+	// Debug
+	if (DebugBotDrawing > 0)
+	{
+		DrawDebugSphere(GetWorld(), GetActorLocation(), ExplosionRadius, 12, FColor::Blue, false, 4.f, (uint8)'\000', 3.f);
+	}
 
 	// Update the material color
 	if (MatInst == nullptr)

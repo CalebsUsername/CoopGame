@@ -62,8 +62,6 @@ void ASExplosiveBarrel::OnHealthChanged(USHealthComponent* HealthComponent, floa
 		bExploded = true;
 		OnRep_Exploded();
 
-		UGameplayStatics::PlaySoundAtLocation(this, ExplodeSound, GetActorLocation());
-
 		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, FString::Printf(TEXT("Barrel Explodes")));
 
 		FVector BoostIntensity = FVector::UpVector * ExplosionImpulse;
@@ -95,6 +93,7 @@ void ASExplosiveBarrel::OnRep_Exploded()
 {
 	UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), ExplodeFX, GetActorLocation(), FRotator::ZeroRotator, ((FVector)((2.0F))), true, EPSCPoolMethod::None, false);
 	MeshComp->SetMaterial(0, ExplodedMaterial);
+	UGameplayStatics::PlaySoundAtLocation(this, ExplodeSound, GetActorLocation());
 }
 
 

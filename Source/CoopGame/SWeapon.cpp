@@ -123,11 +123,13 @@ void ASWeapon::Fire()
 		if(GetOwnerController())
 		{
 			if (HasAuthority())		
-		{
-			HitScanTrace.TraceTo = TracerEnd;
-			HitScanTrace.a++;
-		}
+			{
+				HitScanTrace.TraceTo = TracerEnd;
+				HitScanTrace.a++;
+			}
+			
 			if(CurrentMagSize != 0){CurrentMagSize -= 1.f;}
+
 			PlayWeaponEffects(TracerEnd);
 			LastFireTime = GetWorld()->TimeSeconds;
 		}
