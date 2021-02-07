@@ -127,7 +127,7 @@ void ASWeapon::Fire()
 				HitScanTrace.TraceTo = TracerEnd;
 				HitScanTrace.a++;
 			}
-
+			
 			if(CurrentMagSize != 0){CurrentMagSize -= 1.f;}
 
 			PlayWeaponEffects(TracerEnd);
