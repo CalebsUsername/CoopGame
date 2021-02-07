@@ -20,8 +20,8 @@ ASCharacter::ASCharacter()
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
-	XValueSensitivity = 50;
-	YValueSensitivity = 50;
+	XValueSensitivity = 30;
+	YValueSensitivity = 30;
 
 	CameraAttachSocketName = TEXT("CameraSocket");
 	WeaponAttachSocketName = TEXT("WeaponSocket");
@@ -234,4 +234,7 @@ void ASCharacter::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifet
   Super::GetLifetimeReplicatedProps(OutLifetimeProps);
   DOREPLIFETIME(ASCharacter, CurrentWeapon); // Replicates the Variable to every machine
   DOREPLIFETIME(ASCharacter, bDied);
+  DOREPLIFETIME(ASCharacter, bIsADSight);
+  DOREPLIFETIME(ASCharacter, IsReloading);
+  DOREPLIFETIME(ASCharacter, IsShooting);
 }
