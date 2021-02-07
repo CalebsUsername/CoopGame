@@ -234,4 +234,7 @@ void ASCharacter::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifet
   Super::GetLifetimeReplicatedProps(OutLifetimeProps);
   DOREPLIFETIME(ASCharacter, CurrentWeapon); // Replicates the Variable to every machine
   DOREPLIFETIME(ASCharacter, bDied);
+  DOREPLIFETIME(ASCharacter, bIsADSight);
+  DOREPLIFETIME(ASCharacter, IsReloading);
+  DOREPLIFETIME(ASCharacter, IsShooting);
 }
