@@ -1,0 +1,128 @@
+{
+	"version": "0.2.0",
+	"configurations": [
+		{
+			"name": "CoopGame (Debug)",
+			"request": "launch",
+			"preLaunchTask": "CoopGame Win64 Debug Build",
+			"program": "D:\\UnrealProjects\\CoopGame\\Binaries\\Win64\\UE4-Win64-Debug.exe",
+			"args": [
+			],
+			"cwd": "D:\\Epic Library\\UE_4.26",
+			"stopAtEntry": false,
+			"externalConsole": true,
+			"type": "cppvsdbg",
+			"visualizerFile": "D:\\Epic Library\\UE_4.26\\Engine\\Extras\\VisualStudioDebugging\\UE4.natvis"
+		},
+		{
+			"name": "CoopGame (DebugGame)",
+			"request": "launch",
+			"preLaunchTask": "CoopGame Win64 DebugGame Build",
+			"program": "D:\\UnrealProjects\\CoopGame\\Binaries\\Win64\\UE4-Win64-DebugGame.exe",
+			"args": [
+			],
+			"cwd": "D:\\Epic Library\\UE_4.26",
+			"stopAtEntry": false,
+			"externalConsole": true,
+			"type": "cppvsdbg",
+			"visualizerFile": "D:\\Epic Library\\UE_4.26\\Engine\\Extras\\VisualStudioDebugging\\UE4.natvis"
+		},
+		{
+			"name": "CoopGame (Development)",
+			"request": "launch",
+			"preLaunchTask": "CoopGame Win64 Development Build",
+			"program": "D:\\UnrealProjects\\CoopGame\\Binaries\\Win64\\UE4.exe",
+			"args": [
+			],
+			"cwd": "D:\\Epic Library\\UE_4.26",
+			"stopAtEntry": false,
+			"externalConsole": true,
+			"type": "cppvsdbg",
+			"visualizerFile": "D:\\Epic Library\\UE_4.26\\Engine\\Extras\\VisualStudioDebugging\\UE4.natvis"
+		},
+		{
+			"name": "CoopGame (Shipping)",
+			"request": "launch",
+			"preLaunchTask": "CoopGame Win64 Shipping Build",
+			"program": "D:\\UnrealProjects\\CoopGame\\Binaries\\Win64\\UE4-Win64-Shipping.exe",
+			"args": [
+			],
+			"cwd": "D:\\Epic Library\\UE_4.26",
+			"stopAtEntry": false,
+			"externalConsole": true,
+			"type": "cppvsdbg",
+			"visualizerFile": "D:\\Epic Library\\UE_4.26\\Engine\\Extras\\VisualStudioDebugging\\UE4.natvis"
+		},
+		{
+			"name": "CoopGame (Test)",
+			"request": "launch",
+			"preLaunchTask": "CoopGame Win64 Test Build",
+			"program": "D:\\UnrealProjects\\CoopGame\\Binaries\\Win64\\UE4-Win64-Test.exe",
+			"args": [
+			],
+			"cwd": "D:\\Epic Library\\UE_4.26",
+			"stopAtEntry": false,
+			"externalConsole": true,
+			"type": "cppvsdbg",
+			"visualizerFile": "D:\\Epic Library\\UE_4.26\\Engine\\Extras\\VisualStudioDebugging\\UE4.natvis"
+		},
+		{
+			"name": "CoopGameEditor (Debug)",
+			"request": "launch",
+			"preLaunchTask": "CoopGameEditor Win64 Debug Build",
+			"program": "D:\\Epic Library\\UE_4.26\\Engine\\Binaries\\Win64\\UE4Editor-Win64-Debug.exe",
+			"args": [
+				"D:\\UnrealProjects\\CoopGame\\CoopGame.uproject"
+			],
+			"cwd": "D:\\Epic Library\\UE_4.26",
+			"stopAtEntry": false,
+			"externalConsole": true,
+			"type": "cppvsdbg",
+			"visualizerFile": "D:\\Epic Library\\UE_4.26\\Engine\\Extras\\VisualStudioDebugging\\UE4.natvis"
+		},
+		{
+			"name": "CoopGameEditor (DebugGame)",
+			"request": "launch",
+			"preLaunchTask": "CoopGameEditor Win64 DebugGame Build",
+			"program": "D:\\Epic Library\\UE_4.26\\Engine\\Binaries\\Win64\\UE4Editor-Win64-DebugGame.exe",
+			"args": [
+				"D:\\UnrealProjects\\CoopGame\\CoopGame.uproject"
+			],
+			"cwd": "D:\\Epic Library\\UE_4.26",
+			"stopAtEntry": false,
+			"externalConsole": true,
+			"type": "cppvsdbg",
+			"visualizerFile": "D:\\Epic Library\\UE_4.26\\Engine\\Extras\\VisualStudioDebugging\\UE4.natvis"
+		},
+		{
+			"name": "CoopGameEditor (Development)",
+			"request": "launch",
+			"preLaunchTask": "CoopGameEditor Win64 Development Build",
+			"program": "D:\\Epic Library\\UE_4.26\\Engine\\Binaries\\Win64\\UE4Editor.exe",
+			"args": [
+				"D:\\UnrealProjects\\CoopGame\\CoopGame.uproject"
+			],
+			"cwd": "D:\\Epic Library\\UE_4.26",
+			"stopAtEntry": false,
+			"externalConsole": true,
+			"type": "cppvsdbg",
+			"visualizerFile": "D:\\Epic Library\\UE_4.26\\Engine\\Extras\\VisualStudioDebugging\\UE4.natvis"
+		},
+		{
+			"name": "Generate Project Files",
+			"type": "clr",
+			"request": "launch",
+			"program": "D:\\Epic Library\\UE_4.26\\Engine\\Binaries\\DotNET\\UnrealBuildTool.exe",
+			"console": "externalTerminal",
+			"args": [
+				"-projectfiles",
+				"-vscode",
+				"-project=\"D:\\UnrealProjects\\CoopGame\\CoopGame.uproject\"",
+				"-game",
+				"-engine"
+			],
+			"internalConsoleOptions": "openOnSessionStart",
+			"cwd": "D:\\Epic Library\\UE_4.26"
+		}
+	]
+}

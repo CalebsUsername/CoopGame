@@ -1,0 +1,12 @@
+{
+    "configurations": [
+        {
+            "name": "CoopGameEditor Editor Win64 Development (CoopGame)",
+            "intelliSenseMode": "msvc-x64",
+            "compileCommands": "D:\\UnrealProjects\\CoopGame\\.vscode\\compileCommands_CoopGame.json",
+            "cStandard": "c17",
+            "cppStandard": "c++17"
+        }
+    ],
+    "version": 4
+}

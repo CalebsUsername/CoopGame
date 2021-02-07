@@ -183,7 +183,7 @@ void ASTrackerBot::HandleTakeDamage(USHealthComponent* HealthComponent, float He
 		SelfDestruct();
 	}
 		
-	GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Red, FString::Printf(TEXT("Health %s of %s: "), *FString::SanitizeFloat(Health), *GetName()));
+	UE_LOG(LogTemp, Warning, TEXT("Health %s of %s: "), *FString::SanitizeFloat(Health), *GetName());
 }
 
 
@@ -256,7 +256,6 @@ void ASTrackerBot::OnCheckForFriendlyBots()
 		if (BotsFound.Num() > 0)
 		{
 			NrOfBots = BotsFound.Num();
-			GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Red, FString::Printf(TEXT("NrOfBots: %f"), NrOfBots));
 		}
 	}
 
@@ -268,7 +267,7 @@ void ASTrackerBot::OnCheckForFriendlyBots()
 	// Debug
 	if (DebugBotDrawing > 0)
 	{
-		GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Red, FString::Printf(TEXT("Bot %s Power level: %f"), *GetName(), PowerLevel));
+		DrawDebugSphere(GetWorld(), GetActorLocation(), ExplosionRadius, 12, FColor::Blue, false, 4.f, (uint8)'\000', 3.f);
 	}
 
 	// Update the material color

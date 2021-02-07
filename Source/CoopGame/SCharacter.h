@@ -50,7 +50,7 @@ protected:
 
 	float DefaultFOV;
 
-	UPROPERTY(Replicated, VisibleAnywhere, BlueprintReadOnly, Category = "Player");
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Player");
 	bool bIsADSight;
 
 	UPROPERTY(EditDefaultsOnly, Category = "Player", meta = (ClampMin = 0.1, ClampMax = 100))
@@ -81,10 +81,10 @@ protected:
 
 	FTimerHandle TH_Reloading;
 
-	UPROPERTY(Replicated, EditDefaultsOnly, BlueprintReadOnly, Category = "Weapon")
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Weapon")
 	bool IsReloading;
 
-	UPROPERTY(Replicated, EditDefaultsOnly, BlueprintReadOnly, Category = "Weapon")
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Weapon")
 	bool IsShooting;
 
 	UFUNCTION()
