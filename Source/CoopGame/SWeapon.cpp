@@ -278,4 +278,6 @@ void ASWeapon::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetime
 {
   Super::GetLifetimeReplicatedProps(OutLifetimeProps);
   DOREPLIFETIME_CONDITION(ASWeapon, HitScanTrace, COND_SkipOwner); // Replicates the Variable to every machine
+  DOREPLIFETIME(ASWeapon, BaseMagazineSize);
+  DOREPLIFETIME(ASWeapon, CurrentMagSize);
 }

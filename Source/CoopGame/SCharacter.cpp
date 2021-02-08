@@ -155,17 +155,16 @@ void ASCharacter::ToggleCrouch()
 void ASCharacter::BeginZoom() 
 {
 	bIsADSight = true;
-	// CameraComp->SetRelativeRotation(FRotator{5.f, -5.f, 0.f});
-	// CameraBoom->SocketOffset = FVector{0.f, 20.f, 5.f};
+	//CameraBoom->SocketOffset = FVector{0.f, 75.f, 15.f};
 }
 
 
 void ASCharacter::EndZoom() 
 {
 	bIsADSight = false;
-	// CameraComp->SetRelativeRotation(FRotator{0.f});
-	// CameraBoom->SocketOffset = FVector{0.f, 15.f, 10.f};
+	//CameraBoom->SocketOffset = FVector{0.f, 75.f, 10.f};
 }
+
 
 void ASCharacter::StartFire() 
 {
@@ -179,6 +178,7 @@ void ASCharacter::StartFire()
 	}
 }
 
+
 void ASCharacter::StopFire() 
 {
 	if(CurrentWeapon)
@@ -188,10 +188,13 @@ void ASCharacter::StopFire()
 	}
 }
 
+
 void ASCharacter::Reload() 
 {
 	if(CurrentWeapon && !IsShooting)
 	{
+		if (IsReloading) {return;}
+		
 		if (CurrentWeapon->CurrentMagSize < CurrentWeapon->BaseMagazineSize)
 		{
 			IsReloading = true;
@@ -206,6 +209,7 @@ void ASCharacter::Reload()
 	}
 }
 
+
 void ASCharacter::EndReload() 
 {
 	if(CurrentWeapon)
@@ -215,6 +219,7 @@ void ASCharacter::EndReload()
 		GetWorldTimerManager().ClearTimer(TH_Reloading);
 	}
 }
+
 
 void ASCharacter::OnHealthChanged(USHealthComponent* HealthComponent, float Health, float HealthDelta, 
 								  const class UDamageType* DamageType, class AController* InstigatedBy, AActor* DamageCauser) 
@@ -229,9 +234,13 @@ void ASCharacter::OnHealthChanged(USHealthComponent* HealthComponent, float Heal
 	}
 }
 
+
 void ASCharacter::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
 {
   Super::GetLifetimeReplicatedProps(OutLifetimeProps);
   DOREPLIFETIME(ASCharacter, CurrentWeapon); // Replicates the Variable to every machine
   DOREPLIFETIME(ASCharacter, bDied);
+  DOREPLIFETIME(ASCharacter, bIsADSight);
+  DOREPLIFETIME(ASCharacter, IsReloading);
+  DOREPLIFETIME(ASCharacter, IsShooting);
 }
