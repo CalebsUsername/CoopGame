@@ -118,7 +118,7 @@ FVector ASTrackerBot::GetNextPathPoint()
 	GetWorldTimerManager().ClearTimer(TH_RefreshPath);
 	GetWorldTimerManager().SetTimer(TH_RefreshPath, this, &ASTrackerBot::RefreshPath , 5.0f, false);
 
-	if(PlayerPawn && NavPath->PathPoints.Num() > 1)
+	if(NavPath && NavPath->PathPoints.Num() > 1)
 	{
 		// Return next point in path
 		return NavPath->PathPoints[1];

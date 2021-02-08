@@ -13,5 +13,44 @@ UCLASS()
 class COOPGAME_API ASHordeGameMode : public AGameModeBase
 {
 	GENERATED_BODY()
+
+public:
+
+	ASHordeGameMode();
+
+	virtual void StartPlay() override;
+
+	virtual void Tick(float DeltaTime) override;
+
+protected:
+
+	FTimerHandle TH_BotSpawner;
+
+	FTimerHandle TH_NextWaveStart;
+
+	// Bots to spawn in current wave
+	int32 NumOfBotsToSpawn;
+
+	int32 WaveCount;
+
+	UPROPERTY(EditDefaultsOnly, Category = "GameMode")
+	float TimeBetweenWaves;
+
+	// Hook for BP to spawn a single bot
+	UFUNCTION(BlueprintImplementableEvent, Category = "GameMode")
+	void SpawnNewBot();
+
+	void SpawnBotTimerElapsed();
+
+	// Start Spawning bots
+	void StartWave();
+
+	// Stop spawning bots
+	void EndWave();
+
+	// Start timer for next start wave
+	void PrepareForNextWave();
+
+	void CheckWaveState();
 	
 };
