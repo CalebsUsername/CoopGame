@@ -7,6 +7,8 @@
 #include "SPowerUpActor.h"
 #include "TimerManager.h"
 
+
+
 // Sets default values
 ASPickupActor::ASPickupActor()
 {
@@ -19,6 +21,7 @@ ASPickupActor::ASPickupActor()
 	DecalComp->SetRelativeRotation(FRotator{90.f, 0, 0});
 	DecalComp->DecalSize = FVector{64, 75, 75};
 	DecalComp->SetupAttachment(SphereComp);
+	SetReplicates(true);
 }
 
 
@@ -26,8 +29,12 @@ ASPickupActor::ASPickupActor()
 void ASPickupActor::BeginPlay()
 {
 	Super::BeginPlay();
-	Respawn();
+	if (HasAuthority())
+	{
+		Respawn();
+	}
 }
+
 
 void ASPickupActor::Respawn() 
 {
@@ -48,9 +55,9 @@ void ASPickupActor::NotifyActorBeginOverlap(AActor* OtherActor)
 {
 	Super::NotifyActorBeginOverlap(OtherActor);
 
-	if (PowerUpInstance)
+	if (HasAuthority() && PowerUpInstance)
 	{
-		PowerUpInstance->ActivatePowerUp();
+		PowerUpInstance->ActivatePowerUp(OtherActor);
 		PowerUpInstance = nullptr;
 
 		// Set timer to respawn powerup

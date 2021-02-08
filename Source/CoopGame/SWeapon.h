@@ -40,10 +40,10 @@ public:
 	void EndFire();
 	void OnReload();
 
-	UPROPERTY(EditDefaultsOnly, Category = "Weapon")
+	UPROPERTY(Replicated, BlueprintReadWrite, Category = "Weapon")
 	float BaseMagazineSize;
 
-	UPROPERTY(BlueprintReadOnly)
+	UPROPERTY(Replicated, BlueprintReadWrite, Category = "Weapon")
 	float CurrentMagSize;
 
 protected:
