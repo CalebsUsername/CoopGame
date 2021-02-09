@@ -3,6 +3,7 @@
 
 #include "SHealthComponent.h"
 #include "Net/UnrealNetwork.h"
+#include "SHordeGameMode.h"
 
 // Sets default values for this component's properties
 USHealthComponent::USHealthComponent()
@@ -10,6 +11,7 @@ USHealthComponent::USHealthComponent()
 	DefaultHealth = 100.f;
 
 	SetIsReplicatedByDefault(true);
+	bIsDead = false;
 }
 
 
@@ -33,6 +35,11 @@ void USHealthComponent::BeginPlay()
 
 void USHealthComponent::HandleTakeAnyDamage(AActor* DamagedActor, float Damage, const class UDamageType* DamageType, class AController* InstigatedBy, AActor* DamageCauser) 
 {
+	if (Damage <= 0.f || bIsDead)
+	{
+		return;
+	}
+	
 	if(Damage <= 0)
 	{
 		return;
@@ -41,6 +48,19 @@ void USHealthComponent::HandleTakeAnyDamage(AActor* DamagedActor, float Damage, 
 	Health = FMath::Clamp(Health - Damage, 0.f, DefaultHealth);
 
 	OnHealthChanged.Broadcast(this, Health, Damage, DamageType, InstigatedBy, DamageCauser);
+
+	bIsDead = Health <= 0.f;
+
+	if (bIsDead)
+	{
+		ASHordeGameMode* GM = Cast<ASHordeGameMode>(GetWorld()->GetAuthGameMode());
+		if (GM)
+		{
+			GM->OnActorKilled.Broadcast(GetOwner(), DamageCauser, InstigatedBy);
+		}
+	}
+	
+
 }
 
 

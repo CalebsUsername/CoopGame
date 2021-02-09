@@ -6,9 +6,13 @@
 #include "GameFramework/GameModeBase.h"
 #include "SHordeGameMode.generated.h"
 
-/**
- * 
- */
+
+enum class EWaveState : uint8;
+
+
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_ThreeParams(FOnActorKilled, AActor*, VictimActor, AActor*, KillerActor, AController*, KillerController);
+
+
 UCLASS()
 class COOPGAME_API ASHordeGameMode : public AGameModeBase
 {
@@ -21,6 +25,9 @@ public:
 	virtual void StartPlay() override;
 
 	virtual void Tick(float DeltaTime) override;
+
+	UPROPERTY(BlueprintAssignable, Category = "GameMode")
+	FOnActorKilled OnActorKilled;
 
 protected:
 
@@ -53,4 +60,9 @@ protected:
 
 	void CheckWaveState();
 	
+	void CheckForPlayersLiving();
+
+	void GameOver();
+
+	void SetWaveState(EWaveState NewState);
 };
