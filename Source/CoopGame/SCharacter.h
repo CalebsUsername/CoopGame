@@ -25,6 +25,12 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Camera")
 	float YValueSensitivity;
 
+	UFUNCTION(BlueprintCallable, Category = "Player")
+	void StartFire();
+
+	UFUNCTION(BlueprintCallable, Category = "Player")
+	void StopFire();
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -70,10 +76,6 @@ protected:
 
 	UPROPERTY(VisibleDefaultsOnly, Category = "Camera")
 	FName CameraAttachSocketName;
-
-	void StartFire();
-
-	void StopFire();
 
 	void Reload();
 

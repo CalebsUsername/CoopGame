@@ -46,6 +46,9 @@ public:
 	UPROPERTY(Replicated, BlueprintReadWrite, Category = "Weapon")
 	float CurrentMagSize;
 
+	// UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Weapon", meta = (ClampMin=0.f))
+	// float BloomIncrease;
+
 protected:
 
 	// Called when the game starts or when spawned
@@ -76,6 +79,10 @@ protected:
 	bool GunTrace(FHitResult& Hit, FVector ShotDirection);
 
 	FVector TracerEnd;
+
+	// Bullet spread in degrees
+	UPROPERTY(EditDefaultsOnly, Category = "Weapon", meta = (ClampMin=0.f))
+	float BulletSpread;
 
 	UPROPERTY(EditDefaultsOnly, Category = "Weapon")
 	float MaxRange;

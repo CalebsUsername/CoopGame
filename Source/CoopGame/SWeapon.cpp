@@ -8,6 +8,7 @@
 #include "Particles/ParticleSystemComponent.h"
 #include "PhysicalMaterials/PhysicalMaterial.h"
 #include "CoopGame.h"
+#include "SCharacter.h"
 #include "Net/UnrealNetwork.h"
 
 
@@ -33,6 +34,8 @@ ASWeapon::ASWeapon()
 	MaxRange = 1000.f;
 	BaseDamage = 10.f;
 	FireRate = 400.f;
+	BulletSpread = .5f;
+	// BloomIncrease = .1f;
 	BaseMagazineSize = 35.f;
 	CurrentMagSize = BaseMagazineSize;
 
@@ -173,7 +176,6 @@ bool ASWeapon::ServerFire_Validate()
 
 
 // LineTrace from camera viewpoint to FVector MaxRange
-// Set bTraceComplex to true for precision damage to mesh faces
 bool ASWeapon::GunTrace(FHitResult& Hit, FVector ShotDirection) 
 {
 	AController* OwnerController = GetOwnerController();
@@ -183,9 +185,17 @@ bool ASWeapon::GunTrace(FHitResult& Hit, FVector ShotDirection)
 	FRotator Rotation;
 	OwnerController->GetPlayerViewPoint(Location, Rotation);
 
-	ShotDirection = -Rotation.Vector();
-	TracerEnd = Location + Rotation.Vector() * MaxRange;
+	ShotDirection = Rotation.Vector();
 
+	// Bullet spread
+	// BulletSpread += BloomIncrease;
+	float HalfRad = FMath::DegreesToRadians(BulletSpread);
+	ShotDirection = FMath::VRandCone(ShotDirection, HalfRad, HalfRad);
+
+	// Bullet end destination
+	TracerEnd = Location + (ShotDirection * MaxRange);
+
+	// Set bTraceComplex to true for precision damage to mesh faces
 	FCollisionQueryParams Params;
 	Params.AddIgnoredActor(this);
 	Params.AddIgnoredActor(GetOwner());
