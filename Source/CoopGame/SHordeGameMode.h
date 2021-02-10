@@ -65,4 +65,6 @@ protected:
 	void GameOver();
 
 	void SetWaveState(EWaveState NewState);
+
+	void RespawnDeadPlayers();
 };

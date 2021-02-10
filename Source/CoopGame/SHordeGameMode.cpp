@@ -63,6 +63,7 @@ void ASHordeGameMode::PrepareForNextWave()
 {
     GetWorldTimerManager().SetTimer(TH_NextWaveStart, this, &ASHordeGameMode::StartWave, TimeBetweenWaves, false);
     SetWaveState(EWaveState::WaitingToStart);
+    RespawnDeadPlayers();
 }
 
 
@@ -99,6 +100,7 @@ void ASHordeGameMode::CheckWaveState()
     
 }
 
+
 void ASHordeGameMode::CheckForPlayersLiving() 
 {
     for (class TActorIterator<APlayerController> Itr(GetWorld()); Itr; ++Itr)
@@ -119,6 +121,7 @@ void ASHordeGameMode::CheckForPlayersLiving()
     GameOver();
 }
 
+
 void ASHordeGameMode::GameOver() 
 {
     EndWave();
@@ -127,6 +130,7 @@ void ASHordeGameMode::GameOver()
 
     SetWaveState(EWaveState::GameOver);
 }
+
 
 void ASHordeGameMode::SetWaveState(EWaveState NewState) 
 {
@@ -148,5 +152,18 @@ void ASHordeGameMode::SpawnBotTimerElapsed()
     if (NumOfBotsToSpawn <= 0)
     {
         EndWave();
+    }
+}
+
+
+void ASHordeGameMode::RespawnDeadPlayers() 
+{
+    for (class TActorIterator<APlayerController> Itr(GetWorld()); Itr; ++Itr)
+    {
+        APlayerController* PC = *Itr;
+        if (PC && PC->GetPawn() == nullptr)
+        {
+            RestartPlayer(PC);
+        }
     }
 }

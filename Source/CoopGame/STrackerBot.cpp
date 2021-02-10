@@ -116,7 +116,7 @@ FVector ASTrackerBot::GetNextPathPoint()
 	UNavigationPath* NavPath = UNavigationSystemV1::FindPathToActorSynchronously(this, GetActorLocation(), PlayerPawn);
 
 	GetWorldTimerManager().ClearTimer(TH_RefreshPath);
-	GetWorldTimerManager().SetTimer(TH_RefreshPath, this, &ASTrackerBot::RefreshPath , 5.0f, false);
+	GetWorldTimerManager().SetTimer(TH_RefreshPath, this, &ASTrackerBot::RefreshPath , 3.0f, false);
 
 	if(NavPath && NavPath->PathPoints.Num() > 1)
 	{
