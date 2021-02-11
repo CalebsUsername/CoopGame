@@ -89,6 +89,7 @@ void ASWeapon::Fire()
 	EPhysicalSurface SurfaceType = SurfaceType_Default;
 
 	bool WasHit = GunTrace(Hit, ShotDirection);
+	AActor* MyOwner = GetOwner();
 
 	if (WasHit)
 	{
@@ -103,7 +104,10 @@ void ASWeapon::Fire()
 			DamageApplied = BaseDamage * 2.5;
 		}
 
-		UGameplayStatics::ApplyPointDamage(HitActor, DamageApplied, ShotDirection, Hit, GetOwnerController(), this, DamageType);
+		if (MyOwner)
+		{
+		UGameplayStatics::ApplyPointDamage(HitActor, DamageApplied, ShotDirection, Hit, GetOwnerController(), MyOwner, DamageType);
+		}
 			
 		TracerEnd = Hit.ImpactPoint;
 	

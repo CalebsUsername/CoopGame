@@ -35,6 +35,12 @@ public:
 
 	float GetHealth() const;
 
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Health Component")
+	uint8 TeamNum;
+
+	UFUNCTION(BlueprintCallable, BlueprintPure, Category = "Health Component")
+	static bool IsFriendly(AActor* ActorA, AActor* ActorB);
+
 protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;

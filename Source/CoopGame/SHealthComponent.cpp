@@ -12,6 +12,8 @@ USHealthComponent::USHealthComponent()
 
 	SetIsReplicatedByDefault(true);
 	bIsDead = false;
+
+	TeamNum = 255;
 }
 
 
@@ -40,7 +42,7 @@ void USHealthComponent::HandleTakeAnyDamage(AActor* DamagedActor, float Damage, 
 		return;
 	}
 	
-	if(Damage <= 0)
+	if (DamageCauser != DamagedActor && IsFriendly(GetOwner(), DamageCauser))
 	{
 		return;
 	}
@@ -71,13 +73,6 @@ void USHealthComponent::OnRep_Health(float OldHealth)
 }
 
 
-void USHealthComponent::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
-{
-  Super::GetLifetimeReplicatedProps(OutLifetimeProps);
-  DOREPLIFETIME(USHealthComponent, Health); // Replicates the Variable to every machine
-}
-
-
 void USHealthComponent::Heal(float Amount) 
 {
 	if (Amount <= 0 || Health <= 0)
@@ -94,3 +89,32 @@ float USHealthComponent::GetHealth() const
 {
 	return Health;
 }
+
+bool USHealthComponent::IsFriendly(AActor* ActorA, AActor* ActorB) 
+{
+	if (ActorA == nullptr || ActorB == nullptr) 
+	{
+		// Assume Friendly
+		return true;
+	}
+
+	USHealthComponent* HealthCompA = Cast<USHealthComponent>(ActorA->GetComponentByClass(USHealthComponent::StaticClass()));
+	USHealthComponent* HealthCompB = Cast<USHealthComponent>(ActorB->GetComponentByClass(USHealthComponent::StaticClass()));
+
+	if (HealthCompA == nullptr || HealthCompB == nullptr)
+	{
+		// Assume Friendly
+		return true;
+	}
+
+	return HealthCompA->TeamNum == HealthCompB->TeamNum;
+	
+}
+
+
+void USHealthComponent::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
+  Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+  DOREPLIFETIME(USHealthComponent, Health); // Replicates the Variable to every machine
+}
+
